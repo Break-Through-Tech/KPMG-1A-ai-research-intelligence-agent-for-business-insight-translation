@@ -2,6 +2,7 @@
 # AI Research Intelligence Agent for Business Insight Translation
 
 **Company / Org:** KPMG  
+
 **Challenge Advisor:** Chris Jambor, cjambor@kpmg.com 
 
 **AI Coach:** Alexandra Ladyzhensky, alexandra.ladyzhensky@breakthroughtech.org
