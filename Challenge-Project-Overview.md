@@ -1,21 +1,4 @@
 
-## 📋 BTT Internal Evaluation Notes
-
-| Check | Status | Notes |
-|-------|--------|-------|
-| Python Compatibility | GREEN | The project's tech stack is centered on Python, particularly due to the use of RAG techniques and NLP tools which are available in Python libraries. |
-| Data Readiness | YELLOW | Data is publicly available and under 1GB, but will require cleaning and preprocessing for effective use. This introduces some risks in the initial phases of the project. |
-| Resource Check | GREEN | The project is designed to be feasible using the free tier of Google Colab, which is accessible and eliminates hardware constraints. |
-
-**Student Fit Score:** 7/10  
-**Technical Depth Score:** 8/10  
-**Overall Recommendation:** REVISE
-
-**Advisor Feedback Draft:**
-The project presents a viable opportunity for students to engage with the complexities of NLP and model evaluation. However, they must be prepared for potential delays in data processing and a need for rigorous evaluation against success metrics.
-
----
-
 # AI Research Intelligence Agent for Business Insight Translation
 
 **Company / Org:** KPMG  
@@ -76,8 +59,7 @@ Use these milestones to guide your work. Your team will create a **GitHub Projec
 | October | Pipeline Development & Evaluation | • Implement retrieval + summarization pipeline<br>• Develop prompt engineering approach for business translation<br>• Begin evaluation (relevance and accuracy testing) |
 | November | Solution Refinement, User Experience & Final Delivery | • Refine model outputs and improve ranking/relevance<br>• Build lightweight user interface or interaction layer<br>• Document solution and prepare final presentation |
 
-
-> **Note for the team:** Please create a GitHub Projects board in this repository to break these milestones into weekly tasks. We've included an example breakdown below. Go to the **Projects** tab → **New project** → Choose **Board** → Add columns for each month.
+> **Note for the team:** Please create a GitHub Projects board in this repository to break these milestones into weekly tasks. Go to the **Projects** tab → **New project** → Choose **Board** → Add columns for each month.
 
 | Month	| Week | Weekly Tasks |
 |---|---|---|
@@ -98,33 +80,38 @@ Use these milestones to guide your work. Your team will create a **GitHub Projec
 
 ## 📊 Dataset
 
-**Name and Source:** Publicly available AI research data from arXiv, specific to Artificial Intelligence   
+**Name and Source:** Publicly available AI research data from arXiv   
 **Format:** Categorical and Text, primarily in PDF format  
 **Size:** under 1gb  
 **Location:** arXiv Artificial Intelligence Research: https://arxiv.org/list/cs.AI/recent
 
-
 ### Key Details
-arXiv (pronounced "archive") is a free online platform and open-access archive. Researchers use it to share **early versions of scientific papers—called preprints—before formal peer review.** It covers physics, mathematics, computer science, statistics, quantitative biology, quantitative finance, and economics.
+arXiv (pronounced "archive") is a free online platform and open-access archive. Researchers use it to share early versions of scientific papers—called preprints—before formal peer review. It covers physics, mathematics, computer science, statistics, quantitative biology, quantitative finance, and economics.
 
 ---
 
 ## 🛠️ Suggested Approach
 
-**ML Problem Type:** NLP / Retrieval-augmented Generation
+**ML Problem Type:** NLP / Retrieval-Augmented Generation (RAG) — research paper Q&A and business-insight summarization
 
-**Note to BTT AI Coaches and Fellows:** 
-We propose the following approaches, but work with your AI coaches to determine the best approach for your team:
-1.	Use the provided link to the arXiv website with the repository of AI research papers and determine a way to build an agent that navigates to the site, evaluates all the links, downloads the files to analyze the content, and then generate the insights, etc.
-2.	Download our sample subset of the research papers to ground your RAG solution and then build an agent that analyzes the content and generates cited insights. 
+**Recommended Tools & Libraries:**
 
-
-**Recommended Libraries:**
-- [e.g., pandas, scikit-learn, TensorFlow, Hugging Face]
+| Category | Python Options |
+|---|---|
+| PDF Parsing | `pypdf` (or `unstructured` for more robust parsing) |
+| Embeddings | `sentence-transformers` (compare multiple models) |
+| Vector Store | `ChromaDB` (simpler API) or `FAISS` (more control over indexing)  |
+| Pipeline / Orchestration | `LangChain` or `LlamaIndex` |
+| Retrieval Enhancement *(optional)*| Cross-encoder reranker (`sentence-transformers`) |
+| LLM / Generation | Free-tier LLM API (Google Gemini API, Hugging Face Inference API) |
+| Evaluation Framework *(optional)* | `RAGAS` |
+| Environment | Google Colab |
 
 **Evaluation Metrics:**
-- [e.g., Accuracy, Precision/Recall, RMSE, BLEU score]
-
+- Retrieval Relevance — manual check (yes/no per benchmark query), or Recall@k / Mean Reciprocal Rank (MRR) for a quantitative measure
+- Summary Accuracy & Clarity — team rubric (1–5), or RAGAS Faithfulness / Answer Relevancy scores for automated scoring
+- Business Usefulness — team rubric (1–5), paired with whichever metrics above you use
+  
 ---
 
 ## 📚 Resources to Get Started
@@ -132,19 +119,17 @@ We propose the following approaches, but work with your AI coaches to determine 
 The following resources will help your team understand the problem space and potential technical approaches for this project:
 
 **Background Reading:**
-- [e.g., Link to an article or blog post about the problem domain]
-- [e.g., Link to an industry report or case study]
+- [IBM: What is Retrieval-Augmented Generation?](https://www.ibm.com/think/topics/retrieval-augmented-generation)
+- [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401)
+- [RAGAS: RAG Evaluation Metrics Guide](https://superlinked.com/blog/evaluating-retrieval-augmented-generation-ragas)
 
 **Technical Tutorials:**
-- [e.g., Link to a free tutorial on the ML technique(s) involved]
-- [e.g., Link to documentation for a key library or tool]
+- [LangChain's official RAG tutorial](https://docs.langchain.com/oss/python/deepagents/rag)
+- [Building and Evaluating Advanced RAG](https://www.deeplearning.ai/courses/building-evaluating-advanced-rag)
 
 **Code Examples:**
-- [e.g., Link to a relevant GitHub repo]
-- [e.g., Link to a sample implementation or starter code]
-
-**Other:**
-- [Links to any additional resources — e.g., papers, videos, podcasts, etc.]
+- [RAG_Techniques](https://github.com/NirDiamant/rag_techniques)
+- [arxiv-public-datasets](https://github.com/mattbierbaum/arxiv-public-datasets)
 
 *Feel free to explore beyond these, and share anything interesting you find with me!*
 
@@ -155,15 +140,16 @@ The following resources will help your team understand the problem space and pot
 **Official check-ins:** During our biweekly 45-minute AI Studio Lab Section meeting block (2nd and 4th week of every month)
 
  **Other ways to reach out to me with questions:** 
-* **Preferred** KPMG Email; please copy your teammates and AI Studio Coach
+* **Preferred** KPMG Email - cjambor@kpmg.com; please copy your teammates and AI Studio Coach
 * I am on the team's channel within Break Through Tech’s Discord space, but email is better.
 * Note: Regardless of channel, I will aim to respond within 48 hours. Please reach out to your AI Studio Coach with urgent questions.
 * Optional: Request a team check-in on Zoom if things go off the rails
 
 
-**Recommended free coding / collaboration tools**
-* […]
-* […]
+**Recommended Tools:**
+* Coding: Google Colab
+* Collaboration: GitHub, Notion
+* Virtual Meetings: Zoom, Google Meet
 
 ---
 
@@ -174,6 +160,7 @@ The following resources will help your team understand the problem space and pot
 3. **Read the GitHub Projects documentation** [here](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects)
 
 I’m excited to work with you!
+
 
 ---
 
