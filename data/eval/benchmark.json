@@ -1,0 +1,140 @@
+[
+  {
+    "id": 1,
+    "query": "How can AI queries be routed to specialist models while accounting for the cost of estimating each model's value?",
+    "gold": [
+      "2608.20316v1"
+    ],
+    "evidence": "embedding-based"
+  },
+  {
+    "id": 2,
+    "query": "What is the Pandora's Box formulation of model routing?",
+    "gold": [
+      "2608.20316v1"
+    ],
+    "evidence": "pandora"
+  },
+  {
+    "id": 3,
+    "query": "Why are cheap embedding-based estimators noisy compared with fine-tuned estimators in routing?",
+    "gold": [
+      "2608.20316v1"
+    ],
+    "evidence": "embedding-based"
+  },
+  {
+    "id": 4,
+    "query": "Which benchmark tests whether LLM agents can design training algorithms?",
+    "gold": [
+      "2608.20318v1"
+    ],
+    "evidence": "trainingalgorithm"
+  },
+  {
+    "id": 5,
+    "query": "What is recursive self-improvement and why does it depend on training algorithm design?",
+    "gold": [
+      "2608.20318v1"
+    ],
+    "evidence": "recursiveself-improvement"
+  },
+  {
+    "id": 6,
+    "query": "How does AI4AI-Bench separate algorithmic design from hyperparameter tuning and data collection?",
+    "gold": [
+      "2608.20318v1"
+    ],
+    "evidence": "hyperparameter"
+  },
+  {
+    "id": 7,
+    "query": "How can task models be induced from naturalistic computer-use traces?",
+    "gold": [
+      "2608.20319v1"
+    ],
+    "evidence": "taskmodelinduction"
+  },
+  {
+    "id": 8,
+    "query": "What is Task Model Induction (TMI)?",
+    "gold": [
+      "2608.20319v1"
+    ],
+    "evidence": "taskmodelinduction"
+  },
+  {
+    "id": 9,
+    "query": "Why do screenshot and mouse/keyboard traces help organizations audit and reuse how work is done?",
+    "gold": [
+      "2608.20319v1"
+    ],
+    "evidence": "auditable"
+  },
+  {
+    "id": 10,
+    "query": "How was a chatbot used to collect stated-preference survey data on commuter mode choice?",
+    "gold": [
+      "2608.20320v1"
+    ],
+    "evidence": "stated-preference"
+  },
+  {
+    "id": 11,
+    "query": "How does weather affect student commuters' travel mode choice?",
+    "gold": [
+      "2608.20320v1"
+    ],
+    "evidence": "multinomiallogit"
+  },
+  {
+    "id": 12,
+    "query": "What three-agent workflow integrates data collection, data processing and demand prediction?",
+    "gold": [
+      "2608.20320v1"
+    ],
+    "evidence": "chatbot"
+  },
+  {
+    "id": 13,
+    "query": "How does G-CARL use checklist-aligned reward learning for medical report interpretation?",
+    "gold": [
+      "2608.20331v1"
+    ],
+    "evidence": "checklist"
+  },
+  {
+    "id": 14,
+    "query": "What tasks does the patient-oriented medical report interpretation benchmark include?",
+    "gold": [
+      "2608.20331v1"
+    ],
+    "evidence": "vqa"
+  },
+  {
+    "id": 15,
+    "query": "How can medical vision-language models communicate findings to patients in an evidence-grounded way?",
+    "gold": [
+      "2608.20331v1"
+    ],
+    "evidence": "patient-oriented"
+  },
+  {
+    "id": 16,
+    "query": "What is a good recipe for sourdough bread?",
+    "gold": [],
+    "off_topic": true
+  },
+  {
+    "id": 17,
+    "query": "Who won the 2022 FIFA World Cup?",
+    "gold": [],
+    "off_topic": true
+  },
+  {
+    "id": 18,
+    "query": "What are KPMG's audit fees for 2025?",
+    "gold": [],
+    "off_topic": true
+  }
+]

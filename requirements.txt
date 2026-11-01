@@ -1,2 +1,6 @@
 pdfplumber
 ipykernel
+sentence-transformers
+chromadb
+ollama
+pandas
