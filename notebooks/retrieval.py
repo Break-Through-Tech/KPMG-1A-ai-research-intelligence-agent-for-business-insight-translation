@@ -9,6 +9,8 @@ from data_ingestion import DATA_DIR, Chunk, ingest_directory
 CHROMA_DIR = DATA_DIR / "chroma"
 EMBED_MODEL = "all-MiniLM-L6-v2"
 RERANK_MODEL = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+# Final configuration chosen from the October evaluation: MiniLM embeddings + cross-encoder rerank.
+DEFAULT_RERANK = True
 
 _models: Dict[str, object] = {}
 
@@ -60,7 +62,7 @@ def build_index(chunks: List[Chunk] = None, embed_model: str = EMBED_MODEL, rebu
     return col
 
 
-def retrieve(query: str, k: int = 5, rerank: bool = False, candidates: int = 20,
+def retrieve(query: str, k: int = 5, rerank: bool = DEFAULT_RERANK, candidates: int = 20,
              embed_model: str = EMBED_MODEL) -> List[dict]:
     """Return top-k hits: {text, doc_id, page, score}. Optionally cross-encoder rerank."""
     col = build_index(embed_model=embed_model)

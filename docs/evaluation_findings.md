@@ -74,4 +74,55 @@ Reranking is the main gain (+0.20 Evidence@1, +0.17 MRR for MiniLM). The embeddi
 3. Collect human ratings on a sample (prioritise low-faithfulness queries) and calibrate the judge against them.
 4. Try a larger local model (e.g. a 7B) for summarisation/judging and compare.
 5. Expand the corpus beyond 5 papers and add near-domain unanswerable queries.
-6. Try chunking by section/paragraph instead of fixed 1000-character windows.
+6. Try chunking by section/paragraph instead of fixed 1000-character windows. *(Sentence-aware chunking tested in Section 6; not better.)*
+
+## 6. November update: final configuration, extraction fix and chunking comparison
+
+**Final retrieval configuration:** `all-MiniLM-L6-v2` embeddings + cross-encoder rerank (`DEFAULT_RERANK = True` in `retrieval.py`), fixed 1000-character chunks with 200 overlap.
+
+### 6.1 Extraction fix
+pdfplumber's default `x_tolerance=3` merged words in several PDFs ("AdamFisch?,ShubhenduTrivedi"). Setting `x_tolerance=1.5` restores normal spacing (average word length dropped from 6.5–8.6 to about 4.3–5.4 characters on the worst papers). The corpus is now 499 chunks (was 485).
+
+### 6.2 Chunking and extraction comparison (retrieval, rerank on, 15 queries; `chunking_experiment.py`)
+
+| Variant | Chunks | Evidence@1 | Evidence@5 | MRR |
+|---|---|---|---|---|
+| A: old extraction, fixed 1000/200 | 485 | 0.87 | 1.00 | 0.93 |
+| B: fixed extraction, fixed 1000/200 | 499 | 0.80 | 1.00 | 0.90 |
+| C: fixed extraction, fixed 500/100 | 985 | 0.67 | 0.87 | 0.74 |
+| D: fixed extraction, sentence-aware ~1000/200 | 499 | 0.73 | 1.00 | 0.85 |
+
+- 500/100 is clearly worse. The keyword metric favours larger chunks, so part of that gap is bias.
+- A vs B differs by one query out of 15, and the keyword check ignores whitespace, so retrieval metrics cannot show the benefit of cleaner text. Sentence-aware chunking did not beat fixed windows.
+- Decision: keep fixed 1000/200, keep the extraction fix.
+
+### 6.3 Generation after the extraction fix (same 18 queries, single run each)
+
+| Check | Before (old extraction) | After (fixed extraction) |
+|---|---|---|
+| Top chunk from correct paper | 15/15 | 15/15 |
+| Judge faithfulness, mean (1–5) | 2.93 | 3.93 |
+| Summaries scoring 4 or higher | 33% | 67% |
+| Technical-summary citation validity | 0.93 | 0.88 |
+| Off-topic refusal | 3/3 | 3/3 |
+| v1 / v2 / v3 sections complete | 0 / 1.00 / 0.79 | 0 / 1.00 / 0.89 |
+| Business citation validity v1 / v3 | 1.00 / 0.93 | 0.75 / 0.87 |
+| Business citation validity v2 | no citations | no citations |
+
+Interpretation and caveats:
+- Judge faithfulness rose by about one point, and 10 of 15 summaries scored 4 or higher. That is consistent with cleaner text helping the LLM, but it comes from a noisy 3B judge and a single run. Some individual scores moved the wrong way (queries 2 and 4 dropped), so treat it as encouraging, not confirmed. Human ratings are still needed.
+- Citation validity went slightly down, not up. Fixing text did not fix citation behaviour; that remains the next prompt task.
+- v2 still produces no citations.
+### 6.4 Citation fix for business outputs
+`business_translate` now passes the summary's citations to the prompt, requires each section to end with one, retries once if none appear, and finally appends a "Sources" line. Off-topic summaries ("Not found...") skip the business step and return the not-found message.
+
+| Business variant | Outputs with a citation, before | after | Sections complete, before | after |
+|---|---|---|---|---|
+| v1 plain | 40% | 93% | 0.00 | 0.00 |
+| v2 structured advisor | 0% | 100% | 1.00 | 0.93 |
+| v3 few-shot | 100% | 100% | 0.89 | 0.99 |
+
+- Valid-citation rate (citation points to a retrieved page) is about 0.87–0.88 for all variants, inherited from the technical summaries (0.88). Citations show traceability, not that each claim is supported.
+- The business step still invents generic risks (for example "does not introduce significant risks") even though the prompt says to write "Not stated in the sources". This needs a larger model or human review of that section.
+- The off-topic business outputs in this run were produced before the not-found short-circuit was added (earlier outputs repeated "Not found" in every section or, for v1, asked for a summary); re-run `evaluate.py generation` to refresh them.
+- Raw outputs: `data/eval/results.csv` (after) and `results_baseline_tol3.csv` (before); chunking table: `data/eval/chunking_results.csv`.

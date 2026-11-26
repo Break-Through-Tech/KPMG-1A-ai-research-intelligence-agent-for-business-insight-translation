@@ -1,9 +1,9 @@
 """End-to-end: query -> retrieve (-> rerank) -> technical summary -> business insight."""
-from retrieval import retrieve
+from retrieval import DEFAULT_RERANK, retrieve
 from summarize import business_translate, summarize
 
 
-def answer(query: str, k: int = 4, rerank: bool = True, variant: str = "v2", business: bool = True) -> dict:
+def answer(query: str, k: int = 4, rerank: bool = DEFAULT_RERANK, variant: str = "v2", business: bool = True) -> dict:
     hits = retrieve(query, k=k, rerank=rerank)
     summary = summarize(query, hits)
     out = {

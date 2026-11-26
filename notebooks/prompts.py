@@ -27,7 +27,9 @@ Using ONLY the technical summary below, write these sections (1-2 sentences each
 - Business implications
 - Risks & limits
 - Suggested next step
-Keep the citations from the summary. Do not add facts that are not in the summary.
+Rules:
+- End every section with a citation copied from this list: {citations}. Never invent a citation.
+- Do not add facts that are not in the summary. For "Risks & limits", use only limits stated in the summary; if none are stated, write "Not stated in the sources."
 If the summary says "Not found in the provided sources.", repeat that and stop.
 
 Technical summary:
@@ -45,7 +47,7 @@ Example output:
 **Risks & limits:** Savings were measured on benchmarks, not on our own workloads.
 **Suggested next step:** Pilot routing on one internal use case and track cost and quality.
 
-Now the real input. Keep citations; add no facts beyond the summary. If the summary says "Not found in the provided sources.", repeat that and stop.
+Now the real input. End every section with a citation copied from this list: {citations}. Never invent a citation; add no facts beyond the summary; for "Risks & limits" use only limits stated in the summary, otherwise write "Not stated in the sources." If the summary says "Not found in the provided sources.", repeat that and stop.
 
 Technical summary:
 {summary}"""
